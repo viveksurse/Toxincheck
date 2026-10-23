@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="ToxinCheck helps people understand product ingredients,
+          chemical hazards and practical safety precautions.">
+
+    <title>ToxinCheck | Chemical Safety, Made Clear</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">✳</span>
+            ToxinCheck
+        </a>
+
+        <nav class="nav-links">
+            <a href="#explore">Explore</a>
+            <a href="#categories">Categories</a>
+            <a href="#scanner">Label scanner</a>
+        </nav>
+
+        <a href="#scanner" class="nav-button">
+            Check ingredients ↗
+        </a>
+    </header>
+
+    <main>
+
+        <!-- Hero Section -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    EVERYDAY CHEMICAL AWARENESS
+                </p>
+
+                <h1>
+                    Know what you use.<br>
+                    <span>Choose with confidence.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Understand product ingredients, learn practical
+                    precautions, and explore chemical-safety information
+                    supported by reliable sources.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#explore" class="primary-button">
+                        Explore ingredients ↗
+                    </a>
+
+                    <a href="#scanner" class="secondary-button">
+                        Try label scanner ↓
+                    </a>
+                </div>
+
+                <div class="trust-points">
+                    <span>✓ Plain-language explanations</span>
+                    <span>✓ Safety information</span>
+                    <span>✓ Sources and references</span>
+                </div>
+
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-glow"></div>
+
+                <div class="molecule molecule-one">●</div>
+                <div class="molecule molecule-two">●</div>
+                <div class="molecule molecule-three">●</div>
+
+                <div class="science-card">
+                    <div class="science-icon">⚗</div>
+                    <p class="science-label">CHEMICAL AWARENESS</p>
+                    <h2>Understand the label.</h2>
+                    <p>
+                        Learn about ingredients, possible hazards
+                        and safer handling.
+                    </p>
+
+                    <div class="science-status">
+                        <span class="status-dot"></span>
+                        Knowledge starts with awareness
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Search -->
+        <section class="search-section" id="explore">
+
+            <div class="section-heading">
+                <p class="eyebrow">EXPLORE THE DATABASE</p>
+                <h2>What do you want to understand?</h2>
+                <p>
+                    Search for an ingredient, chemical or toxin category.
+                </p>
+            </div>
+
+            <form id="searchForm" class="search-box">
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Try 'formaldehyde' or 'food additives'"
+                    aria-label="Search chemicals and ingredients"
+                    autocomplete="off"
+                >
+
+                <button type="submit" class="primary-button">
+                    Search
+                </button>
+            </form>
+
+            <p id="searchMessage" class="search-message"
+               aria-live="polite"></p>
+
+        </section>
+
+        <!-- Categories -->
+        <section class="categories-section" id="categories">
+
+            <div class="section-heading">
+                <p class="eyebrow">KNOW YOUR EXPOSURE</p>
+                <h2>Explore safety categories</h2>
+                <p>
+                    Different substances have different hazards.
+                    Learn about them in one place.
+                </p>
+            </div>
+
+            <div class="category-grid">
+
+                <article class="category-card"
+                         data-category="household chemicals">
+                    <div class="category-icon">⚗</div>
+                    <h3>Household chemicals</h3>
+                    <p>
+                        Cleaning products, detergents and safe handling.
+                    </p>
+                    <a href="#scanner" class="category-link">
+                        Explore category →
+                    </a>
+                </article>
+
+                <article class="category-card"
+                         data-category="cosmetics">
+                    <div class="category-icon">✧</div>
+                    <h3>Cosmetics & personal care</h3>
+                    <p>
+                        Ingredients in skincare, haircare and cosmetics.
+                    </p>
+                    <a href="#scanner" class="category-link">
+                        Explore category →
+                    </a>
+                </article>
+
+                <article class="category-card"
+                         data-category="food additives">
+                    <div class="category-icon">◈</div>
+                    <h3>Food additives</h3>
+                    <p>
+                        Preservatives, colors and ingredient information.
+                    </p>
+                    <a href="#scanner" class="category-link">
+                        Explore category →
+                    </a>
+                </article>
+
+                <article class="category-card"
+                         data-category="pesticides">
+                    <div class="category-icon">❋</div>
+                    <h3>Pesticides</h3>
+                    <p>
+                        Potential exposure routes and handling precautions.
+                    </p>
+                    <a href="#scanner" class="category-link">
+                        Explore category →
+                    </a>
+                </article>
+
+                <article class="category-card"
+                         data-category="heavy metals">
+                    <div class="category-icon">◉</div>
+                    <h3>Heavy metals</h3>
+                    <p>
+                        Learn about lead, mercury and other metals.
+                    </p>
+                    <a href="#scanner" class="category-link">
+                        Explore category →
+                    </a>
+                </article>
+
+                <article class="category-card"
+                         data-category="air pollutants">
+                    <div class="category-icon">〰</div>
+                    <h3>Air pollutants</h3>
+                    <p>
+                        Understand common pollutants and exposure risks.
+                    </p>
+                    <a href="#scanner" class="category-link">
+                        Explore category →
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Scanner -->
+        <section class="scanner-section" id="scanner">
+
+            <div class="scanner-content">
+                <p class="eyebrow">SMART INGREDIENT EXPLORER</p>
+
+                <h2>
+                    Make sense of the ingredients
+                    on your product label.
+                </h2>
+
+                <p>
+                    Enter the ingredient list to explore what the
+                    substances are, their potential hazards and
+                    relevant safety precautions.
+                </p>
+
+                <ul class="scanner-benefits">
+                    <li>✓ Ingredient explanations in simple language</li>
+                    <li>✓ Potential hazards and exposure information</li>
+                    <li>✓ Practical precautions and reference sources</li>
+                </ul>
+
+                <a href="/scanner" class="primary-button">
+                    Open ingredient scanner ↗
+                </a>
+            </div>
+
+            <div class="scanner-illustration">
+                <div class="label-card">
+                    <p class="label-brand">PRODUCT LABEL</p>
+                    <h3>Ingredients</h3>
+
+                    <div class="label-line"></div>
+                    <div class="label-line short"></div>
+                    <div class="label-line"></div>
+                    <div class="label-line medium"></div>
+
+                    <div class="label-footer">
+                        <span>Ingredient explorer</span>
+                        <span>↗</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Safety Disclaimer -->
+        <section class="disclaimer" id="safety">
+            <div class="disclaimer-icon">ⓘ</div>
+
+            <div>
+                <h3>Knowledge supports safer choices</h3>
+                <p>
+                    ToxinCheck provides educational information, not
+                    a laboratory test, medical diagnosis or guarantee
+                    that a product is safe or unsafe. Risk depends on
+                    factors such as concentration, dose, exposure route
+                    and duration. Check product labels and authoritative
+                    safety guidance.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="/" class="logo">
+            <span class="logo-icon">✳</span>
+            ToxinCheck
+        </a>
+
+        <p>
+            Chemical safety, made clear.
+        </p>
+
+        <div class="footer-links">
+            <a href="#explore">Explore</a>
+            <a href="#categories">Categories</a>
+            <a href="#safety">Safety disclaimer</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 ToxinCheck. Educational use only.
+        </p>
+    </footer>
+
+</body>
+</html>

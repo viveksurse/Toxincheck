@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredient Scanner | ToxinCheck</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .scanner-container {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 24px;
+        }
+
+        .scanner-card {
+            background: white;
+            color: #18352a;
+            border: 1px solid #dce8df;
+            border-radius: 18px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+
+        .camera-box {
+            background: #101b17;
+            border-radius: 14px;
+            overflow: hidden;
+            text-align: center;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #camera, #photo {
+            display: block;
+            width: 100%;
+            max-height: 420px;
+            object-fit: contain;
+        }
+
+        #camera[hidden], #photo[hidden] {
+            display: none;
+        }
+
+        .camera-placeholder {
+            color: #e0eee5;
+            padding: 30px;
+        }
+
+        .scanner-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .scanner-actions button {
+            border: 0;
+            border-radius: 9px;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .primary-btn {
+            background: #16834c;
+            color: white;
+        }
+
+        .secondary-btn {
+            background: #e8f2eb;
+            color: #18352a;
+        }
+
+        .scanner-card textarea,
+        .scanner-card input,
+        .scanner-card select {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #cad9ce;
+            border-radius: 9px;
+            font: inherit;
+        }
+
+        .field {
+            margin-top: 18px;
+        }
+
+        .help-text {
+            color: #5e7064;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        #scannerStatus {
+            margin-top: 14px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .scanner-container {
+                padding: 14px;
+                margin: 15px auto;
+            }
+
+            .scanner-card {
+                padding: 17px;
+            }
+
+            .scanner-actions button {
+                flex: 1 1 140px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="scanner-container">
+        <a href="/" style="color:#16834c;">← Back to Home</a>
+
+        <h1>Ingredient Label Scanner</h1>
+        <p>
+            Capture a product label, extract its ingredient text,
+            and review the information before analysis.
+        </p>
+
+        <section class="scanner-card">
+            <h2>1. Scan the product label</h2>
+            <p class="help-text">
+                Place the ingredient list in good light. Keep the label
+                steady and make sure the text is readable.
+            </p>
+
+            <div class="camera-box">
+                <video id="camera" autoplay playsinline hidden></video>
+                <img id="photo" alt="Captured ingredient label" hidden>
+
+                <div id="cameraPlaceholder" class="camera-placeholder">
+                    Your camera preview will appear here.
+                </div>
+            </div>
+
+            <div class="scanner-actions">
+                <button type="button" id="startCamera"
+                        class="primary-btn">
+                    Open Camera
+                </button>
+
+                <button type="button" id="capturePhoto"
+                        class="secondary-btn" disabled>
+                    Capture Photo
+                </button>
+
+                <button type="button" id="retakePhoto"
+                        class="secondary-btn" hidden>
+                    Retake Photo
+                </button>
+
+                <label class="secondary-btn"
+                       style="display:inline-flex;align-items:center;cursor:pointer;">
+                    Upload Photo
+                    <input type="file" id="uploadPhoto"
+                           accept="image/*" capture="environment"
+                           style="display:none;">
+                </label>
+            </div>
+
+            <p id="scannerStatus" role="status" aria-live="polite">
+                Open the camera or upload a photo of the label.
+            </p>
+
+            <canvas id="photoCanvas" hidden></canvas>
+        </section>
+
+        <section class="scanner-card">
+            <h2>2. Review the ingredients</h2>
+
+            <p class="help-text">
+                Check the extracted text carefully. Camera images can
+                be unclear, so correct any mistakes before continuing.
+            </p>
+
+            <form id="ingredientForm">
+                <div class="field">
+                    <label for="category"><strong>Product category</strong></label>
+                    <select id="category" name="category" required>
+                        <option value="">Select a category</option>
+                        <option value="cosmetics">Cosmetics and personal care</option>
+                        <option value="household">Household chemicals</option>
+                        <option value="food">Food and food additives</option>
+                        <option value="pesticides">Pesticides</option>
+                        <option value="cleaning">Cleaning products</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="productName"><strong>Product name (optional)</strong></label>
+                    <input id="productName" name="product_name"
+                           type="text" maxlength="150"
+                           placeholder="Enter the product name">
+                </div>
+
+                <div class="field">
+                    <label for="ingredients"><strong>Ingredient list</strong></label>
+                    <textarea id="ingredients" name="ingredients"
+                              rows="7" maxlength="12000" required
+                              placeholder="Extracted text will appear here. You can also type the ingredients manually."></textarea>
+                </div>
+
+                <div class="scanner-actions">
+                    <button type="submit" class="primary-btn">
+                        Analyze Ingredients
+                    </button>
+                    <button type="button" id="clearForm"
+                            class="secondary-btn">
+                        Clear
+                    </button>
+                </div>
+            </form>
+
+            <div id="analysisResult" role="status"
+                 aria-live="polite" hidden></div>
+        </section>
+
+        <p class="help-text">
+            <strong>Safety note:</strong> Ingredient lists alone cannot
+            establish whether a product is safe or harmful. Risk can depend
+            on concentration, intended use, and exposure. This scanner
+            provides educational information, not a medical diagnosis.
+        </p>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"
+            defer></script>
+
+    <!-- OCR will be connected in the next step. -->
+</body>
+</html>
